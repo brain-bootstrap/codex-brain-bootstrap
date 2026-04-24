@@ -1,6 +1,6 @@
 # Codex Brain Bootstrap
 
-> A production-grade productivity system for [OpenAI Codex CLI](https://github.com/openai/codex). Inspired by and adapted from [claude-code-brain-bootstrap](https://github.com/y-abs/claude-code-brain-bootstrap).
+> A production-grade productivity system for [OpenAI Codex CLI](https://github.com/openai/codex).
 
 ---
 
