@@ -135,10 +135,14 @@ done
 # ── Test 4: validate.sh passes ────────────────────────────────────
 echo ""
 echo "Test 4: validate.sh in fresh install"
-if (cd "$FRESH_DIR" && bash brain/scripts/validate.sh 2>&1 | grep -q '0 failed'); then
+# Capture output to a variable — avoids SIGPIPE (grep -q exits early, killing
+# validate.sh mid-write via broken pipe when set -euo pipefail is active).
+VALIDATE_OUT=$(cd "$FRESH_DIR" && bash brain/scripts/validate.sh 2>&1 || true)
+if printf '%s\n' "$VALIDATE_OUT" | grep -q '0 failed'; then
   pass "validate.sh: 0 failures"
 else
   fail "validate.sh: failures detected"
+  printf '%s\n' "$VALIDATE_OUT" | grep '❌' || true
 fi
 
 # ── Summary ───────────────────────────────────────────────────────
