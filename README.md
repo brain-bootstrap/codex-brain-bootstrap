@@ -35,7 +35,7 @@
 
 You fire up `codex` in your monorepo. You ask it to add a feature.
 
-It doesn't know `yarn turbo build` is the right command, not `npm run build`. That you use Biome, not Prettier.
+It doesn't know `yarn turbo build` is the right command, not `pnpm build`. That you use Biome, not Prettier.
 That your `@company/utils` already has `formatDate()` — so it installs `date-fns` and writes a new one from scratch.
 
 **It doesn't know your codebase. It doesn't know your team. It doesn't know your rules.**
