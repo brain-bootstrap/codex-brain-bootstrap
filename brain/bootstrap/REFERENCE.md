@@ -19,7 +19,7 @@
 
 - **validate.sh** → ✅ **[N] passed**, 0 failed
 - **Remaining placeholders** → ✅ 0
-- **Hooks executable** → ✅ [N]/8
+- **Hooks executable** → ✅ [N]/9
 - **config.toml** → ✅ Valid TOML with schema directive
 - **AGENTS.md size** → ✅ [N] lines (budget: ≤800 lines / 32KB)
 - **Skills** → ✅ 48 skills registered
@@ -35,7 +35,7 @@
 - 📐 **Architecture** → [monorepo/single-app/dual-tier]
 - ⚙️ **CI** → [name]
 - 🗄️ **Database** → [name or N/A]
-- 🔌 **MCP Tools** → cocoindex, code-review-graph, serena, playwright (install with uvx)
+- 🔌 **MCP Tools** → cocoindex, codebase-memory-mcp, code-review-graph, serena, playwright (see `brain/plugins.md` for install commands)
 
 ## 📁 What Was Installed
 
@@ -54,24 +54,38 @@
 - [Pattern 2 — e.g., "Config is load-once — changes require restart"]
 - [Pattern 3]
 
-## 🔌 MCP Tool Status
+## � MCP Suggestions (based on your stack)
+
+[Fill from Phase 4.5 scan — only include if relevant:]
+
+- [e.g., "postgres MCP — DATABASE detected → uvx postgres@latest"]
+- [e.g., "github MCP — CI_SYSTEM=github-actions detected → uvx github@latest"]
+- [e.g., "filesystem MCP — Docker/Kubernetes detected → uvx filesystem@latest"]
+
+→ Browse all: [registry.smithery.ai](https://registry.smithery.ai)
+
+## �🔌 MCP Tool Status
 ```
 
-🔎 cocoindex-code — [INSTALLED/NOT INSTALLED]
+🔎 cocoindex-code — [CONFIGURED/NOT CONFIGURED]
 Semantic search — find code by meaning (local vectors, no API key)
-→ First run: uvx cocoindex-code-mcp-server@latest --data-dir .codex/cocoindex --index
+→ Install: uvx cocoindex-code-mcp-server@latest --data-dir .codex/cocoindex --index
 
-🔴 code-review-graph — [INSTALLED/NOT INSTALLED]
+🔍 codebase-memory-mcp — [CONFIGURED/NOT CONFIGURED]
+Structural graph — trace call paths, blast radius, dead code (120× fewer tokens)
+→ Install: curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
+
+🔴 code-review-graph — [CONFIGURED/NOT CONFIGURED]
 Pre-PR blast radius + risk score 0-100
 → Install: uvx code-review-graph@latest
 
-🔧 serena — [INSTALLED/NOT INSTALLED]
+🔧 serena — [CONFIGURED/NOT CONFIGURED]
 LSP-backed atomic symbol rename across entire codebase
 → Install: uvx serena@latest
 
-🌐 playwright — [INSTALLED/NOT INSTALLED]
+🌐 playwright — [CONFIGURED/NOT CONFIGURED]
 Browser automation via accessibility tree
-→ Install: uvx playwright@latest
+→ Install: npx @playwright/mcp@latest
 
 ```
 
@@ -92,7 +106,7 @@ Browser automation via accessibility tree
 
 > 💡 **Pro tip:** Every correction you make gets captured in `brain/tasks/lessons.md`. The brain literally cannot make the same mistake twice.
 
-⏱️ **Phase timing (AI-work):** P1 [time] · P2 [time] · P3 [time] · P4 [time] · P5 [time]
+⏱️ **Phase timing (AI-work):** P1 [time] · P2 skipped (FRESH) · P3 [time] · P4 [time] · P4.5 [time] · P5 [time]
 ⏱️ **Wall-clock total:** ~[N] minutes
 ```
 
@@ -101,35 +115,58 @@ Browser automation via accessibility tree
 ## Template: UPGRADE
 
 ```markdown
-# 🔄 Bootstrap Upgrade Complete — [PROJECT_NAME]
+# 🔄 Configuration Upgraded — [PROJECT_NAME]
 
-> Codex Brain Bootstrap — Upgraded from v[OLD] to v[NEW].
-> Generated [date] · **Mode: Upgrade** · ⏱️ Completed in ~[N] minutes
+> Codex Brain Bootstrap — Your Brain just got smarter. New capabilities installed, all your knowledge preserved.
+> Generated [date] · **Mode: Smart Upgrade** · ⏱️ Completed in ~[N] minutes
 
 ---
 
-## ✅ What Changed
+## ✅ Configuration Health — All Systems Go
 
-- **Infrastructure updated** — hooks, rules, agents, skills
-- **Knowledge preserved** — brain/architecture.md, brain/tasks/, brain/rules.md untouched
-- **New hooks added** → [list any new hooks]
-- **New skills added** → [list any new skills]
-- **New agents added** → [list any new agents]
+- **validate.sh** → ✅ **[N] passed**, 0 failed
+- **Remaining placeholders** → ✅ 0
+- **AGENTS.md size** → ✅ [N] lines (budget: ≤800 lines / 32KB)
+- **Hooks** → ✅ [N] registered
+- **Skills** → ✅ [N] registered
+- **Starlark rules** → ✅ `.codex/rules/default.rules` valid
+
+## 🛡️ What Was Preserved — Your Knowledge is Sacred
+
+- 📚 **Your domain docs** → ✅ Untouched — [list of preserved brain/*.md]
+- 🧠 **Your lessons & todo** → ✅ Untouched — Sacred, never modified
+- ⚡ **Your custom skills** → ✅ Untouched — [list]
+- 🪝 **Your custom hooks** → ✅ Untouched — [list]
+- 📋 **Your AGENTS.md** → ✅ Enhanced — [N] sections added, all your content preserved
+
+## ➕ What Was Added / Upgraded
+
+- ⚡ **New skills** → [list of added skills, or "none — you had them all!"]
+- 🪝 **New hooks** → [list of added hooks, or "none — fully hooked up!"]
+- 🤖 **New agents** → [list of added agents, or "none — fully stacked!"]
+- 📋 **AGENTS.md** → [N] new sections added (review `{{PLACEHOLDERS}}` in each)
+- 📁 **Directory structure** → [normalized to brain/tasks/, or "already standard ✅"]
 
 ## ⚠️ Manual Review Required
 
-- AGENTS.md: New sections were added — review and customize `{{PLACEHOLDERS}}`
-- brain/build.md: Verify build commands are still accurate for your project
-- .codex/rules/default.rules: Review any new approval rules
+- **AGENTS.md**: New sections added — fill any remaining `{{PLACEHOLDERS}}`
+- **brain/build.md**: Verify commands are still accurate
+- `.codex/rules/default.rules`: Review any new approval rules
 
-## ✅ Configuration Health
+## 🤝 Collaboration Mode
 
-- **validate.sh** → ✅ **[N] passed**, 0 failed
-- **Remaining placeholders** → ⚠️ [N] — run `$bootstrap` to fill
+🤝 **TEAM** (default) — config is committed, shared with the team.
+→ Switch to SOLO: `echo -e '\nAGENTS.md\n.codex/\n.agents/\nbrain/\n.codexignore' >> .gitignore`
 
 ## 🎯 What's Next
 
-1. Review changes: `git diff HEAD brain/ AGENTS.md .codex/ .agents/`
-2. Fill remaining placeholders: `$bootstrap`
-3. Commit: `git add .`
+1. 💾 **Commit**: `git add AGENTS.md .codexignore .codex/ .agents/ brain/`
+2. 👀 Review changes: `git diff HEAD brain/ AGENTS.md .codex/ .agents/`
+3. 🧪 Start a Codex session and verify `$build`, `$test`, `$lint` work correctly
+
+---
+
+> 💡 Your accumulated knowledge (`brain/tasks/lessons.md`) was never touched. Every lesson learned carries forward.
+
+⏱️ **Phase timing:** P1 [time] · P2 [time] · P3 [time] · P4 [time] · P4.5 [time] · P5 [time]
 ```

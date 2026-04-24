@@ -1,7 +1,7 @@
 # Bootstrap Upgrade Guide
 
 > **Read this ONLY when performing an UPGRADE** (existing Codex Brain install detected).
-> Follow these steps, then return to `brain/bootstrap/PROMPT.md` → Step 6 (Verify).
+> Follow these steps, then return to `brain/bootstrap/PROMPT.md` → Phase 3.
 
 ---
 
@@ -27,6 +27,18 @@ Restore at any time:
 ```bash
 tar xzf brain/tasks/.pre-upgrade-backup.tar.gz
 ```
+
+---
+
+## Step 0: Dry Run Preview (MANDATORY)
+
+> **See what will change BEFORE changing anything.**
+
+```bash
+bash brain/scripts/dry-run.sh . 2>&1
+```
+
+Review the output. If anything looks wrong, stop and investigate. The dry run changes nothing on disk.
 
 ---
 
@@ -73,13 +85,15 @@ All checks must pass (0 failures). Warnings about unfilled `{{PLACEHOLDER}}` tok
 
 ---
 
-## Step 4: Fill New Placeholders
+## Step 4: Fill Remaining Placeholders
 
-If new sections were added with `{{PLACEHOLDER}}` tokens, run the bootstrap skill to fill them:
+For any `{{PLACEHOLDER}}` tokens still present after the upgrade, do NOT re-run `$bootstrap` — that would loop back to discovery. Instead:
 
-```
-$bootstrap
-```
+1. Run discovery directly: `bash brain/scripts/discover.sh . > brain/tasks/.discovery.env 2>&1`
+2. Run populate: `bash brain/scripts/populate-templates.sh brain/tasks/.discovery.env .`
+3. Then complete Phase 4 (domain detection + creative work) from `brain/bootstrap/PROMPT.md`
+
+For AGENTS.md `{{CRITICAL_PATTERNS}}` — fill manually from codebase analysis (no script can do this).
 
 ---
 
@@ -89,6 +103,10 @@ $bootstrap
 git add AGENTS.md .codexignore .codex/ .agents/ brain/bootstrap/
 git commit -m "chore: upgrade Codex Brain Bootstrap to latest"
 ```
+
+---
+
+> ✅ **Phase 2 complete.** Return to `brain/bootstrap/PROMPT.md` → Phase 3.
 
 ---
 

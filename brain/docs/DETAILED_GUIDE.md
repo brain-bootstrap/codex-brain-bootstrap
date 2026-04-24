@@ -424,7 +424,7 @@ description: Use when errors occur deep in execution and you need to trace back 
 
 #### 4. 🪝 Lifecycle Hooks (`.codex/hooks/`)
 
-Deterministic automation — zero token cost. 9 hooks across 5 lifecycle events:
+Deterministic automation — zero token cost. 10 hooks across 5 lifecycle events:
 
 - 🏁 **Session start** — inject branch, task state, lessons, todo
 - 🔒 **Config protection** — block editing linter/compiler configs
