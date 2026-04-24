@@ -4,8 +4,8 @@
   </a>
 </p>
 
-<h1 align="center">ᗺB - Brain Bootstrap</h1>
-<p align="center"><em>Your AI coding assistant is brilliant.<br>It just forgets everything, ignores your rules, and breaks your conventions.<br><strong>Brain doesn't hope the AI behaves — it makes it. Permanently.</strong></em></p>
+<h1 align="center">ᗺB - Brain Bootstrap for OpenAI Codex</h1>
+<p align="center"><em>Your AI coding assistant is brilliant.<br>It just forgets everything, ignores your rules, and breaks your conventions.<br><strong>Brain doesn't hope Codex behaves — it makes it. Permanently.</strong></em></p>
 <p align="center"><sub>by <a href="https://github.com/y-abs">y-abs</a> · no third-party installs without your explicit approval</sub></p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
@@ -149,7 +149,7 @@ Your repo
 │   ├── terminal-safety.md          ← Shell anti-patterns that cause session hangs
 │   ├── cve-policy.md               ← Security decision tree
 │   ├── plugins.md                  ← MCP tool catalog
-│   ├── scripts/                    ← 15+ bootstrap & maintenance scripts
+│   ├── scripts/                    ← 16 bootstrap & maintenance scripts
 │   ├── tasks/lessons.md            ← 🧠 Accumulated wisdom (persists across sessions)
 │   ├── tasks/todo.md               ← 📝 Current task plan (survives session boundaries)
 │   └── tasks/CODEX_ERRORS.md       ← 🐛 Error log (promotes to rules after 3+ recurrences)
@@ -186,7 +186,7 @@ The system is designed to **minimize token cost** while maximizing context — y
 | 🎓 **Skills**            |  48   | Bootstrap, plan, review, TDD, debug, research, MR, changelog, squad-plan — the full dev lifecycle              |
 | 🪝 **Lifecycle hooks**   |  10   | Config protection, terminal safety, commit quality, prompt guard, TDD loop check, exit checklist               |
 | 🤖 **AI subagents**      |   5   | Explorer, reviewer, plan-challenger, session-reviewer, security-auditor — each picks the right reasoning level |
-| 🔧 **Brain scripts**     |  15+  | Stack discovery (3800-line detector), template population, validation, plugin setup, portability lint          |
+| 🔧 **Brain scripts**     |  16   | Stack discovery (3800-line detector), template population, validation, plugin setup, portability lint          |
 | 🔌 **MCP plugins**       |   5   | code-review-graph, codebase-memory, cocoindex-code, serena, playwright                                         |
 | ✅ **Validation checks** | 105+  | File existence, hook executability, content integrity, settings consistency, cross-reference checks            |
 
