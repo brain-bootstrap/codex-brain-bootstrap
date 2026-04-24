@@ -25,18 +25,15 @@ codex_hooks = true
 # shell_snapshot = true  # Speed up repeated shell commands (default: true)
 # apps = false           # Experimental ChatGPT Apps/connectors support
 
-[shell]
-# Shell to use for Bash tool (default: /bin/bash)
-# shell = "/bin/bash"
 
 # ─── MCP Servers ────────────────────────────────────────────────────────────
 # Uncomment and configure the MCP tools you want to use.
 # Each tool key must match the SERVER_KEY in mcp__SERVER_KEY__TOOL invocations.
 
 # [mcp_servers.codebase-memory]
-# command = "uvx"
-# args = ["codebase-memory-mcp@latest", "--data-dir", ".codex/codebase-memory"]
-# description = "Structural graph — call paths, blast radius, dead code (120x fewer tokens)"
+# command = "codebase-memory-mcp"  # binary — install: curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
+# args = []
+# description = "Structural graph — call paths, blast radius, dead code (120× fewer tokens)"
 
 # [mcp_servers.cocoindex-code]
 # command = "uvx"

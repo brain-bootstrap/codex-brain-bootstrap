@@ -7,8 +7,8 @@
   </p>
   <p align="center">
     <a href="../../LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
-    <a href="#"><img src="https://img.shields.io/badge/100%2B_files-10_categories-blueviolet" alt="100+ files"></a>
-    <a href="#"><img src="https://img.shields.io/badge/30_skills-8_hooks-brightgreen" alt="Automation"></a>
+    <a href="#"><img src="https://img.shields.io/badge/100%2B_files-9_categories-blueviolet" alt="100+ files"></a>
+    <a href="#"><img src="https://img.shields.io/badge/48_skills-10_hooks-brightgreen" alt="Automation"></a>
   </p>
 </p>
 
@@ -76,7 +76,7 @@ Here's the mental model:
             "Here's everything we've learned together"
 ```
 
-**48 skills. 9 lifecycle hooks. 5 AI subagents. 5 MCP tools. 104+ validation checks. Zero setup friction.**
+**48 skills. 10 lifecycle hooks. 5 AI subagents. 5 MCP tools. 104+ validation checks. Zero setup friction.**
 
 > 💡 Battle-tested. Works with **any language, any framework, any repo**.
 
@@ -154,7 +154,7 @@ Your repo
 │       └── default.rules         ← Starlark command approval rules
 │
 ├── 🎓 .agents/
-│   └── skills/ (30 files)        ← $tdd, $review, $mr, $bootstrap, $cocoindex-code...
+│   └── skills/ (48 files)        ← $tdd, $review, $mr, $bootstrap, $cocoindex-code...
 │
 ├── 📚 brain/
 │   ├── architecture.md  📖       ← On-demand (project structure)
@@ -233,7 +233,7 @@ These are the AI's textbooks. The session-start hook injects the most critical o
 
 > 💡 **The examples are training wheels.** Study them → create your own → delete them.
 
-### 🎓 Skills — `.agents/skills/` (30 files)
+### 🎓 Skills — `.agents/skills/` (48 files)
 
 Skills activate when invoked with `$skill-name`. Every skill has a `description:` field that tells Codex when to load it:
 
@@ -269,8 +269,26 @@ Skills activate when invoked with `$skill-name`. Every skill has a `description:
 | 🔧 `maintain`                    | Invocable  | Detect and fix stale `brain/*.md` files                              |
 | 🌿 `worktree`                    | Invocable  | Git worktree management for parallel work                            |
 | 🚀 `bootstrap`                   | Invocable  | Auto-configure `AGENTS.md` for this repo                             |
+| ❓ `ask`                         | Invocable  | Route codebase questions to MCP structural tools                     |
+| 🧹 `clean-worktrees`             | Invocable  | Remove merged git worktrees safely                                   |
+| 🗑️ `cleanup`                     | Invocable  | Clean build artifacts, deps cache, docker volumes                    |
+| 📖 `context`                     | Invocable  | Load domain-specific brain/ files by keyword                         |
+| 🗄️ `db`                          | Invocable  | Non-interactive database queries                                     |
+| 📦 `deps`                        | Invocable  | Manage dependencies and CVE audit                                    |
+| 📊 `diff`                        | Invocable  | Git diff with merge-base (stat/full/files/commits)                   |
+| 🐳 `docker`                      | Invocable  | Non-interactive Docker operations                                    |
+| 🌿 `git`                         | Invocable  | Git workflow with pre-push safety checklist                          |
+| 🏥 `health`                      | Invocable  | Codex config health check dashboard                                  |
+| 🔌 `mcp`                         | Invocable  | MCP server management in config.toml                                 |
+| 🚚 `migrate`                     | Invocable  | Database migration workflow with safety rules                        |
+| 🖥️ `serve`                       | Invocable  | Start dev services (reads brain/build.md)                            |
+| 👥 `squad-plan`                  | Invocable  | Multi-agent parallel workstream plan                                 |
+| 📈 `status`                      | Invocable  | Project status dashboard (budget, hooks, plugins)                    |
+| 🎫 `ticket`                      | Invocable  | Create ticket description with evidence                              |
+| 🔄 `update-code-index`           | Invocable  | Scan exports → CODE_INDEX.md deduplication                           |
+| 🌲 `worktree-status`             | Invocable  | Show all git worktrees with status                                   |
 
-### 🪝 Lifecycle Hooks — `.codex/hooks/` (8 files)
+### 🪝 Lifecycle Hooks — `.codex/hooks/` (10 files)
 
 These are your guardrails. They run automatically — no tokens, no AI reasoning, deterministic protection:
 

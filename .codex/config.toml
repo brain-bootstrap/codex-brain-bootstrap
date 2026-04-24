@@ -20,13 +20,14 @@ personality = "pragmatic"
 web_search = "cached"
 
 # ── Feature flags ──────────────────────────────────────────────────
+suppress_unstable_features_warning = true  # Suppress warning for under-development feature flags
+
 [features]
 codex_hooks   = true    # Enable lifecycle hooks from .codex/hooks.json
 multi_agent   = true    # Enable subagent collaboration (explorer, reviewer, etc.)
 memories      = false   # Cross-session recall — enable when useful, costs tokens
 shell_snapshot = true   # Speed up repeated commands
 undo          = false   # Per-turn git ghost snapshots — opt-in when useful
-suppress_unstable_features_warning = true  # Suppress warning for preview features above
 
 # ── Subagent limits ────────────────────────────────────────────────
 [agents]
@@ -49,9 +50,9 @@ include_only = ["PATH", "HOME", "USER", "SHELL", "LANG", "LC_ALL", "NO_COLOR",
 # description = "Semantic search — find code by meaning (requires Python 3.11+)"
 #
 # [mcp_servers.codebase-memory]
-# command = "uvx"
-# args    = ["codebase-memory-mcp@latest", "--data-dir", ".codex/codebase-memory"]
-# description = "Structural graph — call paths, blast radius, dead code (requires Python 3.10+)"
+# command = "codebase-memory-mcp"  # binary — install: curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash
+# args    = []
+# description = "Structural graph — call paths, blast radius, dead code (120× fewer tokens)"
 #
 # [mcp_servers.code-review-graph]
 # command = "uvx"
