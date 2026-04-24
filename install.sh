@@ -148,6 +148,7 @@ if [ "$MODE" = "FRESH" ]; then
   copy_if_missing "$SCRIPT_DIR/AGENTS.md"                   "$TARGET/AGENTS.md"
   copy_if_missing "$SCRIPT_DIR/AGENTS.override.md.example"  "$TARGET/AGENTS.override.md.example"
   copy_if_missing "$SCRIPT_DIR/.codexignore"                "$TARGET/.codexignore"
+  copy_if_missing "$SCRIPT_DIR/.shellcheckrc"               "$TARGET/.shellcheckrc"
 
   # .codex/ directory (config, hooks, rules, agents)
   n="$(add_missing_files "$SCRIPT_DIR/.codex" "$TARGET/.codex")"
@@ -160,6 +161,17 @@ if [ "$MODE" = "FRESH" ]; then
   # brain/ directory (knowledge base + scripts)
   n="$(add_missing_files "$SCRIPT_DIR/brain" "$TARGET/brain")"
   echo "  ✅ brain/       — $n files"
+
+  # Tool config dirs
+  n="$(add_missing_files "$SCRIPT_DIR/.serena" "$TARGET/.serena")"
+  echo "  ✅ .serena/     — $n files"
+
+  n="$(add_missing_files "$SCRIPT_DIR/.cocoindex_code" "$TARGET/.cocoindex_code")"
+  echo "  ✅ .cocoindex_code/ — $n files"
+
+  # CI / GitHub templates
+  n="$(add_missing_files "$SCRIPT_DIR/.github" "$TARGET/.github")"
+  echo "  ✅ .github/     — $n files"
 
   echo ""
   echo "  ✅ Fresh install complete."
@@ -177,6 +189,7 @@ else
 
   copy_if_missing "$SCRIPT_DIR/AGENTS.override.md.example" "$TARGET/AGENTS.override.md.example" && true
   copy_if_missing "$SCRIPT_DIR/.codexignore" "$TARGET/.codexignore" && true
+  copy_if_missing "$SCRIPT_DIR/.shellcheckrc" "$TARGET/.shellcheckrc" && true
 
   # Infrastructure: always update hooks, rules, agents (add missing, don't remove user additions)
   echo ""
@@ -194,6 +207,17 @@ else
 
   n="$(add_missing_files "$SCRIPT_DIR/.agents"        "$TARGET/.agents")"
   [ "$n" -gt 0 ] && echo "  ✅ .agents/         — $n new files added"
+
+  # Tool config dirs (add missing only — don't overwrite user customizations)
+  n="$(add_missing_files "$SCRIPT_DIR/.serena"         "$TARGET/.serena")"
+  [ "$n" -gt 0 ] && echo "  ✅ .serena/         — $n new files added"
+
+  n="$(add_missing_files "$SCRIPT_DIR/.cocoindex_code" "$TARGET/.cocoindex_code")"
+  [ "$n" -gt 0 ] && echo "  ✅ .cocoindex_code/ — $n new files added"
+
+  # CI / GitHub templates (add missing only)
+  n="$(add_missing_files "$SCRIPT_DIR/.github"         "$TARGET/.github")"
+  [ "$n" -gt 0 ] && echo "  ✅ .github/         — $n new files added"
 
   # Brain knowledge docs: NEVER overwrite — user has filled these in
   echo ""
@@ -221,11 +245,15 @@ else
   echo "  ✅ Upgrade complete."
 fi
 
-# ── Make hook scripts executable ──────────────────────────────────
+# ── Make scripts executable ───────────────────────────────────────
 echo ""
-echo "🔒 Making hook scripts executable..."
+echo "🔒 Making scripts executable..."
 find "$TARGET/.codex/hooks" -name '*.sh' -exec chmod +x {} \; 2>/dev/null && \
   echo "  ✅ .codex/hooks/*.sh — executable" || true
+find "$TARGET/brain/scripts" -name '*.sh' -exec chmod +x {} \; 2>/dev/null && \
+  echo "  ✅ brain/scripts/*.sh — executable" || true
+find "$TARGET/.agents/skills" -name '*.sh' -exec chmod +x {} \; 2>/dev/null && \
+  echo "  ✅ .agents/skills/**/*.sh — executable" || true
 
 # ── Next steps ────────────────────────────────────────────────────
 echo ""
