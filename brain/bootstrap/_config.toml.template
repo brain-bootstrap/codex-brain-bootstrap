@@ -1,0 +1,79 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+# Codex Brain Bootstrap — Project Configuration Template
+# Copy to your project root as .codex/config.toml and fill in the placeholders.
+# Run `$bootstrap` to auto-populate the {{PLACEHOLDER}} tokens.
+
+# ─── Model ──────────────────────────────────────────────────────────────────
+model = "gpt-5.4"                    # Default model for all sessions
+model_reasoning_effort = "high"      # "high" | "medium" | "low"
+# personality = "pragmatic"          # "pragmatic" | "friendly" | "none"
+
+# ─── Sandbox & Approvals ────────────────────────────────────────────────────
+approval_policy = "on-request"       # "untrusted" | "on-request" | "never"
+sandbox_mode = "workspace-write"     # "read-only" | "workspace-write" | "danger-full-access"
+
+# ─── Web Search ─────────────────────────────────────────────────────────────
+# web_search = "cached"              # "cached" (default) | "live" | "disabled"
+
+[features]
+# Enable lifecycle hooks (REQUIRED for all hooks to fire)
+codex_hooks = true
+
+# Optional features (uncomment to enable):
+# memories = true        # Cross-session memory recall
+# undo = false           # Per-turn git ghost snapshots for undo support
+# shell_snapshot = true  # Speed up repeated shell commands (default: true)
+# apps = false           # Experimental ChatGPT Apps/connectors support
+
+[shell]
+# Shell to use for Bash tool (default: /bin/bash)
+# shell = "/bin/bash"
+
+# ─── MCP Servers ────────────────────────────────────────────────────────────
+# Uncomment and configure the MCP tools you want to use.
+# Each tool key must match the SERVER_KEY in mcp__SERVER_KEY__TOOL invocations.
+
+# [mcp_servers.codebase-memory]
+# command = "uvx"
+# args = ["codebase-memory-mcp@latest", "--data-dir", ".codex/codebase-memory"]
+# description = "Structural graph — call paths, blast radius, dead code (120x fewer tokens)"
+
+# [mcp_servers.cocoindex-code]
+# command = "uvx"
+# args = ["cocoindex-code-mcp-server@latest", "--data-dir", ".codex/cocoindex"]
+# description = "Semantic search — find code by meaning (local vectors, no API key)"
+
+# [mcp_servers.code-review-graph]
+# command = "uvx"
+# args = ["code-review-graph@latest"]
+# description = "Change risk analysis — blast radius + risk score 0-100"
+
+# [mcp_servers.serena]
+# command = "uvx"
+# args = ["serena@latest"]
+# description = "LSP symbol rename/move — atomic multi-file refactoring"
+
+# [mcp_servers.playwright]
+# command = "npx"
+# args = ["@playwright/mcp@latest"]
+# description = "Browser automation via accessibility tree (requires Node.js 18+)"
+
+# [mcp_servers.github]
+# command = "npx"
+# args = ["-y", "@github/mcp-server"]
+# env = { GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE" }
+# startup_timeout_sec = 10     # seconds to start (default: 10)
+# tool_timeout_sec = 60        # seconds per tool call (default: 60)
+# enabled = true               # set false to disable without deleting config
+# required = false             # set true to fail startup if server can't init
+# description = "GitHub PR/issue management"
+
+# ─── Subagent Settings ──────────────────────────────────────────────────────
+# [agents]
+# max_threads = 6                  # concurrent open agent thread cap
+# max_depth = 1                    # nesting depth (1 = direct children only)
+# job_max_runtime_seconds = 1800   # per-worker timeout for spawn_agents_on_csv batch jobs
+
+# ─── Approval Rules ─────────────────────────────────────────────────────────
+# Starlark rules for requiring approval before certain operations.
+# See .codex/rules/default.rules for configured rules.

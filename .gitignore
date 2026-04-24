@@ -1,0 +1,30 @@
+# .gitignore — Codex Brain Bootstrap
+
+# Personal override (never commit personal preferences)
+AGENTS.override.md
+
+# Discovery cache
+brain/tasks/.discovery.env
+brain/tasks/session-logs/
+
+# MCP tool indexes (rebuilt automatically)
+.codex/cocoindex/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12

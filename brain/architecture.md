@@ -1,0 +1,50 @@
+# Architecture Reference — {{PROJECT_NAME}}
+
+{{PROJECT_DESCRIPTION}}
+
+<!-- BOOTSTRAP: This file is auto-populated by $bootstrap. Run it to fill in the placeholders. -->
+
+## Workspace Layout
+
+| Directory    | Purpose           |
+| ------------ | ----------------- |
+| `{{DIR_1}}/` | {{DIR_1_PURPOSE}} |
+| `{{DIR_2}}/` | {{DIR_2_PURPOSE}} |
+| `{{DIR_3}}/` | {{DIR_3_PURPOSE}} |
+
+<!-- Add more directories as needed -->
+
+## Service / Module Catalog
+
+| Service         | Directory            | Purpose               | Stack               |
+| --------------- | -------------------- | --------------------- | ------------------- |
+| `{{SERVICE_1}}` | `{{SERVICE_1_DIR}}/` | {{SERVICE_1_PURPOSE}} | {{SERVICE_1_STACK}} |
+| `{{SERVICE_2}}` | `{{SERVICE_2_DIR}}/` | {{SERVICE_2_PURPOSE}} | {{SERVICE_2_STACK}} |
+
+<!-- Add more services/modules as needed -->
+
+## Shared Packages / Libraries
+
+| Package         | Directory            | Key exports           |
+| --------------- | -------------------- | --------------------- |
+| `{{PACKAGE_1}}` | `{{PACKAGE_1_DIR}}/` | {{PACKAGE_1_EXPORTS}} |
+
+<!-- Add shared packages if applicable -->
+
+## Package Aliases / Import Conventions
+
+<!-- Document any path aliases from tsconfig, webpack, pyproject, etc. -->
+<!-- Example: `@app/commons` → `packages/commons/src` -->
+
+## Key Infrastructure
+
+| Component   | Purpose             |
+| ----------- | ------------------- |
+| {{INFRA_1}} | {{INFRA_1_PURPOSE}} |
+
+<!-- Database, message broker, cache, auth provider, etc. -->
+
+## Data Flow Summary
+
+<!-- High-level: how does data flow through the system? -->
+<!-- Example: Client → API Gateway → Service → Queue → Worker → DB -->

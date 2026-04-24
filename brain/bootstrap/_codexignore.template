@@ -1,0 +1,146 @@
+# .codexignore — Default template for projects using Codex Brain Bootstrap
+#
+# Copy/symlink to your project root as .codexignore
+# Customize each section for your project's needs.
+# Rules are gitignore-style: patterns match from repo root.
+
+# ============================================================
+# DEPENDENCIES — Never read, huge volume, adds noise
+# ============================================================
+node_modules/
+.venv/
+venv/
+env/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+.pip-cache/
+vendor/
+.bundle/
+
+# ============================================================
+# BUILD OUTPUTS — Generated, not source
+# ============================================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+target/
+.gradle/
+*.class
+*.jar
+*.war
+*.egg
+*.egg-info/
+*.whl
+
+# ============================================================
+# LOCK FILES — Machine-generated, noisy for AI reads
+# ============================================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+Cargo.lock
+poetry.lock
+Gemfile.lock
+go.sum
+composer.lock
+pip.lock
+
+# ============================================================
+# IDE / EDITOR CONFIG — Personal tooling, not project logic
+# ============================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# SECRETS & SENSITIVE — Never expose to AI
+# ============================================================
+.env
+.env.local
+.env.*.local
+.env.production
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+*.secret
+
+# ============================================================
+# LOGS & TEMPORARY — Ephemeral, high noise
+# ============================================================
+*.log
+logs/
+tmp/
+temp/
+.cache/
+coverage/
+.nyc_output/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ============================================================
+# BINARY ASSETS — Not readable, waste context budget
+# ============================================================
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.webp
+*.svg
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.zip
+*.tar.gz
+*.gz
+*.bz2
+*.7z
+*.rar
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+*.ttf
+*.woff
+*.woff2
+*.eot
+
+# ============================================================
+# CODEX INTERNAL — Managed by Codex Brain, not edited by AI
+# ============================================================
+.codex/cocoindex/
+brain/tasks/.pre-upgrade-backup.tar.gz
+brain/tasks/.permission-audit.log
+
+# ============================================================
+# TEST FIXTURES & SNAPSHOTS — High volume, rarely helpful
+# ============================================================
+# __snapshots__/
+# fixtures/
+# testdata/
+
+# ============================================================
+# DATABASE & MIGRATION ARTIFACTS — Generated files
+# ============================================================
+# *.sql.bak
+# migrations/*.lock
+
+# ============================================================
+# UNCOMMENT FOR MONOREPOS — Exclude unrelated services
+# ============================================================
+# services/legacy-service/
+# packages/deprecated-*/

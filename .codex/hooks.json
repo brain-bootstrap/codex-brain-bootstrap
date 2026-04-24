@@ -1,0 +1,130 @@
+{
+  "_comment": "Codex lifecycle hooks — requires [features] codex_hooks = true in .codex/config.toml",
+  "_docs": "https://developers.openai.com/codex/hooks",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/session-start.sh",
+            "statusMessage": "Loading brain context and task state",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/prompt-guard.sh",
+            "statusMessage": "Scanning prompt for accidentally pasted secrets",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/config-protection.sh",
+            "statusMessage": "Checking config protection policy",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/terminal-safety-gate.sh",
+            "statusMessage": "Checking terminal safety policy",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/pre-commit-quality.sh",
+            "statusMessage": "Running pre-commit quality gate",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+
+    "PermissionRequest": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/permission-audit.sh",
+            "statusMessage": "Logging permission request",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/post-bash-review.sh",
+            "statusMessage": "Reviewing Bash output",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/tdd-loop-check.sh",
+            "statusMessage": "Checking for failing tests",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/exit-nudge.sh",
+            "statusMessage": "Running exit checklist",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/warn-missing-test.sh",
+            "statusMessage": "Checking for source files without tests (strict profile)",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

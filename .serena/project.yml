@@ -1,0 +1,8 @@
+# Serena project config — LSP language support
+# Serena auto-installs language servers on first use (pyright, typescript-language-server, etc.)
+# Supported: python, typescript, javascript, java, go, rust, c, cpp, csharp
+# Add/remove languages to match this project's stack.
+languages:
+  - python
+  - typescript
+  - javascript

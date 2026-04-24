@@ -1,0 +1,19 @@
+# AGENTS.override.md — Personal Overrides
+# This file is gitignored. Use it for personal preferences that should NOT
+# be shared with the team. The contents of this file take precedence over
+# AGENTS.md when both exist.
+
+## Personal Preferences
+
+<!-- Add your personal instructions here. Examples: -->
+<!-- - Preferred response style (more verbose, more concise, etc.) -->
+<!-- - Personal toolchain preferences -->
+<!-- - Experimental flags you're testing -->
+<!-- - Local environment quirks -->
+
+## Local Environment Notes
+
+<!-- Document anything specific to YOUR machine that Codex should know: -->
+<!-- - Custom tool paths -->
+<!-- - Locally running services (e.g., local DB on non-standard port) -->
+<!-- - VPN / proxy requirements -->

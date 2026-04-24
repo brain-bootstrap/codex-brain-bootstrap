@@ -1,0 +1,158 @@
+# .codex/rules/default.rules — Command approval policy
+# Starlark format. Uses prefix_rule() to control which commands Codex can run
+# outside the sandbox (allow, prompt, or forbidden).
+# Test with: codex execpolicy check --pretty --rules .codex/rules/default.rules -- <command>
+# Docs: https://developers.openai.com/codex/rules
+
+# ── FORBIDDEN — Never run without exception ────────────────────────
+
+prefix_rule(
+    pattern = ["rm", "-rf", "/"],
+    decision = "forbidden",
+    justification = "Deleting root filesystem is never allowed under any circumstance.",
+    not_match = [
+        "rm -rf /tmp/brain-bootstrap-install",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--force"],
+    decision = "forbidden",
+    justification = "Force push is destructive and blocked by policy. Ask the user explicitly if a force push is truly needed.",
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Hard reset discards uncommitted work. Ask the user explicitly before resetting.",
+)
+
+prefix_rule(
+    pattern = ["git", "clean", "-fd"],
+    decision = "forbidden",
+    justification = "Cleaning untracked files may destroy in-progress work. Requires explicit user confirmation.",
+)
+
+# Note: Dangerous SQL DDL (DROP TABLE, TRUNCATE) is covered by the psql/mysql
+# prompt rules below — any psql/mysql invocation requires explicit approval.
+
+# ── PROMPT — Require approval before running ───────────────────────
+
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "prompt",
+    justification = "NEVER push autonomously. Present summary + proposed command to the user and wait for confirmation.",
+    match = [
+        "git push origin main",
+        "git push origin feature/foo",
+        "git push --set-upstream origin feature/foo",
+    ],
+    not_match = [
+        "git push --dry-run origin main",
+        "git push --force origin main",
+    ],
+)
+
+prefix_rule(
+    pattern = ["npm", "publish"],
+    decision = "prompt",
+    justification = "Publishing a package to npm requires explicit user confirmation.",
+)
+
+prefix_rule(
+    pattern = ["yarn", "publish"],
+    decision = "prompt",
+    justification = "Publishing a package to npm requires explicit user confirmation.",
+)
+
+prefix_rule(
+    pattern = ["git", "tag"],
+    decision = "prompt",
+    justification = "Creating a release tag requires explicit user review.",
+)
+
+prefix_rule(
+    pattern = ["psql"],
+    decision = "prompt",
+    justification = "Database operations require explicit approval. Use psql -c 'query' dbname for non-interactive use.",
+)
+
+prefix_rule(
+    pattern = ["mysql"],
+    decision = "prompt",
+    justification = "Database operations require explicit approval.",
+)
+
+prefix_rule(
+    pattern = ["gh", "pr", "merge"],
+    decision = "prompt",
+    justification = "Merging a pull request requires explicit user confirmation.",
+)
+
+# ── ALLOW — Known-safe read and build operations ───────────────────
+
+prefix_rule(
+    pattern = ["git", ["log", "diff", "status", "branch", "show", "stash", "fetch", "clone", "checkout"]],
+    decision = "allow",
+    justification = "Standard git read/navigation operations are safe.",
+)
+
+prefix_rule(
+    pattern = ["grep"],
+    decision = "allow",
+    justification = "Search operations are safe and read-only.",
+)
+
+prefix_rule(
+    pattern = ["rg"],
+    decision = "allow",
+    justification = "ripgrep search is safe and read-only.",
+)
+
+prefix_rule(
+    pattern = ["find"],
+    decision = "allow",
+    justification = "File system discovery is safe when read-only.",
+)
+
+prefix_rule(
+    pattern = ["ls"],
+    decision = "allow",
+    justification = "Directory listing is safe.",
+)
+
+prefix_rule(
+    pattern = ["cat"],
+    decision = "allow",
+    justification = "File read is safe.",
+)
+
+prefix_rule(
+    pattern = ["head"],
+    decision = "allow",
+    justification = "File read (head) is safe.",
+)
+
+prefix_rule(
+    pattern = ["tail"],
+    decision = "allow",
+    justification = "File read (tail) is safe.",
+)
+
+prefix_rule(
+    pattern = ["wc"],
+    decision = "allow",
+    justification = "Word/line count is safe.",
+)
+
+prefix_rule(
+    pattern = ["echo"],
+    decision = "allow",
+    justification = "Echo is safe.",
+)
+
+prefix_rule(
+    pattern = ["codex", "execpolicy"],
+    decision = "allow",
+    justification = "Testing rule policies is safe and useful.",
+)

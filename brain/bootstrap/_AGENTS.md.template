@@ -1,0 +1,143 @@
+# AGENTS.md — {{PROJECT_NAME}}
+
+> Auto-loaded by Codex at every session. Keep under 32KB.
+> At session start: read `brain/architecture.md` and `brain/rules.md` using the file tool.
+
+## ⚠️ Mandatory Reads — Consult before acting
+
+**Session start →** read `brain/tasks/todo.md` + `brain/tasks/lessons.md`
+
+| If task involves…             | Read FIRST                              |
+|-------------------------------|-----------------------------------------|
+| _anything_ (first action)     | `brain/tasks/todo.md` + `brain/tasks/lessons.md` + `brain/architecture.md` + `brain/rules.md` |
+| build, test, CI, lint         | `brain/build.md`                        |
+| MR, PR, commit, ticket        | `brain/templates.md`                    |
+| terminal, shell, subprocess   | `brain/terminal-safety.md`              |
+| CVE, dependency, security     | `brain/cve-policy.md`                   |
+| MCP tools, semantic search    | `brain/plugins.md`                      |
+
+## Operating Protocol
+
+1. **Plan first** — write plan to `brain/tasks/todo.md` for non-trivial tasks (3+ steps)
+2. **Prove completion** — run tests, check logs, demonstrate correctness
+3. **No hacky solutions** — ask "is there a more elegant way?" before committing
+4. **Fix bugs autonomously** — don't ask, just fix
+5. **Mark progress** — update brain/tasks/todo.md as you go
+6. **Maintain knowledge** — update brain/*.md when you discover stale info
+
+## Reasoning Strategy
+
+- Use `model_reasoning_effort = "high"` (set in .codex/config.toml)
+- For planning, review, architecture: think through all options before proposing
+- For simple tasks (build, grep, lint): use efficient reasoning
+- Complex problems: decompose into sub-questions, confidence-weight each, combine
+
+## Token Cost Strategy
+
+- **Subagents** for exploration — use `explorer` agent to preserve main context
+- **Progressive disclosure** — read brain/*.md on demand, not preemptively
+- **Compact-safe** — session-start hook injects project context on every start
+
+## Subagent Roster
+
+| Agent | Purpose | When |
+|-------|---------|------|
+| `explorer` | Read-only codebase exploration | Researching before implementing |
+| `reviewer` | 10-point code review | Before any PR |
+| `plan-challenger` | Adversarial plan critique | Before major implementation |
+| `security-auditor` | 6-category security scan | Before deployment |
+| `session-reviewer` | Extract session lessons | After long sessions |
+
+Invoke: `Use the [agent-name] agent to...`
+
+## Skills Roster
+
+| Skill | Invocation | Purpose |
+|-------|-----------|---------|
+| Bootstrap | `$bootstrap` | Configure AGENTS.md for this project |
+| Plan | `$plan` | Write task plan to brain/tasks/todo.md |
+| Review | `$review` | 10-point code review |
+| TDD | `$tdd` | Red-green-refactor workflow |
+| Debug | `$debug` | 5-step root cause analysis |
+| Research | `$research` | Isolated codebase exploration |
+| Resume | `$resume` | Restore context from last session |
+| MR | `$mr` | Generate PR description |
+| Build | `$build` | Build and verify |
+| Test | `$test` | Run tests and report |
+| Lint | `$lint` | Lint and format check |
+| Maintain | `$maintain` | Fix stale brain/*.md docs |
+| Checkpoint | `$checkpoint` | Save session state |
+| Root Cause | `$root-cause-trace` | Trace error to origin |
+| Cross-Layer | `$cross-layer-check` | Symbol consistency across layers |
+| Worktree | `$worktree` | Git worktree management |
+
+## 🚨 Exit Checklist (MANDATORY before ending any turn)
+
+1. User corrected me? → Update `brain/tasks/lessons.md` NOW
+2. Learned something new? → Same
+3. Open task? → Mark progress in `brain/tasks/todo.md`
+4. Touched a domain? → Verify relevant `brain/*.md` is still accurate
+5. New pattern or pitfall? → Add to lessons.md
+6. Terminal commands run? → Verify none triggered pager, interactive mode, or unbounded output
+
+Do NOT yield until all six pass.
+
+## Terminal Rules (CRITICAL — #1 cause of session hangs)
+
+> Full reference: `brain/terminal-safety.md`
+
+- **🚨 PIPE `|`**: `grep -E 'a|b'` ✅ — `grep -E "a|b"` ❌ — ALWAYS single quotes for regex
+- **NEVER** trigger a pager: always `git --no-pager` or `| cat`
+- **NEVER** open interactive programs: no `vi`, `nano`, `psql` (without `-c`), REPL
+- **NEVER** `cd /path && command` — use absolute paths or run from project root
+- **NEVER** dump unbounded output: always `| head -N`
+- **ALWAYS** `--color=never` + `2>&1`
+- **Short-lived** (test, grep, git): foreground. **Long-running** (server, watch): background.
+- **After any terminal issue** → update `brain/terminal-safety.md` + `brain/tasks/lessons.md` immediately
+
+## Critical Patterns
+
+- **NEVER `git push` autonomously** — present summary, wait for user confirmation
+- **All proofs (build, test) MUST pass** before generating any MR description
+- **Temp files go in `brain/tasks/`**, never in `/tmp/`
+- **NEVER modify IDE config** (.idea/, .vscode/) unless explicitly asked
+
+## Key Decisions
+
+> Settled architectural choices — do not re-litigate unless user explicitly asks.
+> Full rationale in `brain/decisions.md`.
+
+<!-- {{KEY_DECISIONS}} — Add settled choices as they're made:
+- Example: [YYYY-MM] PostgreSQL over MongoDB — relational data model
+- Example: [YYYY-MM] REST over gRPC — simpler client integration
+-->
+
+## Review Protocol
+
+Before any PR, review:
+
+1. **Ticket re-read** — verify every scenario addressed
+2. **Cross-layer consistency** — grep every new field across all layers
+3. **Enum completeness** — verify switch/case handles all values
+4. **Transaction safety** — trace every write caller
+5. **Race condition analysis** — trace concurrent flows
+6. **Test scenario completeness** — every branch has a test
+7. **Pre-existing vs introduced** — distinguish prior warnings from new ones
+8. **Security** — new external calls, data exposure, unsafe defaults
+9. **100/100 confidence gate** — do not proceed to MR until all above pass
+
+## Hard Constraints
+
+- **NEVER modify IDE configuration files** unless explicitly asked
+<!-- {{HARD_CONSTRAINTS}} -->
+
+## Don't
+
+<!-- {{DONT_LIST}} — Add project-specific anti-patterns here:
+- Example: Don't add a new DB column without a migration script
+- Example: Don't import ServiceA from ServiceB
+-->
+
+## Core Principles
+
+Simplicity · No laziness (root cause, senior standards) · Surgical changes · Evidence-based
