@@ -11,7 +11,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
   <a href="https://github.com/brain-bootstrap/codex-brain-bootstrap/actions/workflows/ci.yml"><img src="https://github.com/brain-bootstrap/codex-brain-bootstrap/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="#"><img src="https://img.shields.io/badge/OpenAI_Codex-Ready-10A37F" alt="OpenAI Codex"></a>
-  <a href="#-write-once-read-everywhere"><img src="https://img.shields.io/badge/Any_AI_Tool-Knowledge_Portable-ff6f00" alt="Knowledge Portable"></a>
+  <a href="#-write-once-read-everywhere"><img src="https://img.shields.io/badge/Knowledge-Portable_Across_Tools-ff6f00" alt="Knowledge Portable"></a>
 </p>
 
 <p align="center">
