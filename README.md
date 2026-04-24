@@ -6,7 +6,7 @@
 
 <h1 align="center">ᗺB - Brain Bootstrap for OpenAI Codex</h1>
 <p align="center"><em>Your AI coding assistant is brilliant.<br>It just forgets everything, ignores your rules, and breaks your conventions.<br><strong>Brain doesn't hope Codex behaves — it makes it. Permanently.</strong></em></p>
-<p align="center"><sub>by <a href="https://github.com/y-abs">y-abs</a> · no third-party installs without your explicit approval</sub></p>
+<p align="center"><sub>by <a href="https://github.com/brain-bootstrap">brain-bootstrap</a> · no third-party installs without your explicit approval</sub></p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
   <a href="https://github.com/brain-bootstrap/codex-brain-bootstrap/actions/workflows/ci.yml"><img src="https://github.com/brain-bootstrap/codex-brain-bootstrap/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
@@ -20,7 +20,7 @@
   <a href="#-what-changes-when-you-add-a-brain">Before & After</a> &nbsp;·&nbsp;
   <a href="#-get-started-in-5-minutes">5 Min Setup</a> &nbsp;·&nbsp;
   <a href="#-how-it-works-under-the-hood">Under the Hood</a> &nbsp;·&nbsp;
-  <a href="#-whats-inside">200+ Files</a> &nbsp;·&nbsp;
+  <a href="#-whats-inside">120+ Files</a> &nbsp;·&nbsp;
   <a href="#-it-gets-smarter-over-time">Gets Smarter</a> &nbsp;·&nbsp;
   <a href="#-safety-defense-in-depth">Guardrails</a> &nbsp;·&nbsp;
   <a href="#-plugin-ecosystem">Superpowers</a> &nbsp;·&nbsp;
@@ -91,7 +91,7 @@ Every AI coding tool reads instructions. None of them enforce those instructions
 
 ---
 
-> 🎯 **200+ files isn't complexity. It's the minimum architecture where instructions become guarantees.**
+> 🎯 **120+ files isn't complexity. It's the minimum architecture where instructions become guarantees.**
 
 ---
 
@@ -129,7 +129,7 @@ The discovery engine detects 25+ languages, 1,100+ frameworks, 21 package manage
 
 ## 🧠 How It Works Under the Hood
 
-Codex Brain Bootstrap is **200+ files** of structured configuration that live in your repo, version-controlled alongside your code. It's not a wrapper, not a plugin, not a SaaS product — it's **a knowledge architecture** that teaches your AI assistant how your project actually works.
+Codex Brain Bootstrap is **120+ files** of structured configuration that live in your repo, version-controlled alongside your code. It's not a wrapper, not a plugin, not a SaaS product — it's **a knowledge architecture** that teaches your AI assistant how your project actually works.
 
 ```
 Your repo

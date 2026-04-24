@@ -35,11 +35,11 @@ The bootstrap configures an **MCP tool stack** — each tool covers a distinct, 
 
 ```toml
 [mcp_servers.codebase-memory]
-command = "uvx"
-args = ["codebase-memory-mcp@latest", "--data-dir", ".codex/codebase-memory"]
+command = "codebase-memory-mcp"   # binary installed via install.sh
+args = []
 ```
 
-**First run:** `index_repository(repo_path=".")` — ~6s for 500 files.
+**Install:** `curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash` — auto-detects Codex and writes the MCP config.
 
 **Token efficiency:** 120× fewer tokens than file exploration for structural questions.
 

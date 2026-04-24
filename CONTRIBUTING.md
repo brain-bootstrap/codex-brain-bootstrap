@@ -47,7 +47,7 @@ Bug reports and fixes are always welcome. Please include:
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-org/codex-brain-bootstrap.git
+git clone https://github.com/brain-bootstrap/codex-brain-bootstrap.git
 cd codex-brain-bootstrap
 
 # Validate your changes
