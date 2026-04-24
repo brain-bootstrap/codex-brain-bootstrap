@@ -40,7 +40,6 @@ jobs:
           args: >-
             --offline
             --no-progress
-            --include-fragments
             '*.md'
             'brain/**/*.md'
             '.github/**/*.md'

@@ -46,7 +46,7 @@ if $DRY_RUN; then echo "  ⚠️  DRY RUN — no files will be modified"; fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # ─── Parse discovery file ─────────────────────────────────────────
-declare -A VALUES
+declare -A VALUES # portability-ok (bash 4+ enforced above via BASH_VERSINFO check)
 while IFS= read -r line; do
   [[ "$line" =~ ^#.*$ ]] && continue
   [[ -z "$line" ]] && continue

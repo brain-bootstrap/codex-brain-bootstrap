@@ -13,10 +13,11 @@ WARNINGS=0
 check() {
   local severity="$1" description="$2" pattern="$3"
   local hits
-  # Search .sh files only, exclude comments and this script itself
+  # Search .sh files only, exclude comments, this script, and lines with # portability-ok
   hits=$(grep -rn "$pattern" --include='*.sh' . 2>/dev/null \
     | grep -v 'portability-lint\.sh' \
-    | grep -v '^\([^:]*:\)\{0,1\}[[:space:]]*#' || true)
+    | grep -v '^\([^:]*:\)\{0,1\}[[:space:]]*#' \
+    | grep -v '# portability-ok' || true)
   if [ -n "$hits" ]; then
     if [ "$severity" = "ERROR" ]; then
       echo "  ❌ $description"

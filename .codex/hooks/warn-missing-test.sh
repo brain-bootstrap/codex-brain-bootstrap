@@ -26,9 +26,9 @@ while IFS= read -r FILE_PATH; do
     *) continue ;;
   esac
 
-  # Skip test files themselves
+  # Skip test files themselves (*test* already matches *__tests__*)
   case "$FILE_PATH" in
-    *test*|*spec*|*__tests__*) continue ;;
+    *test*|*spec*) continue ;;
   esac
 
   # Only check files inside a recognizable source tree

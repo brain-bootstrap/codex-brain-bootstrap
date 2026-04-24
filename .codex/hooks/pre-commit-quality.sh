@@ -46,6 +46,7 @@ if [ -z "${STAGED}" ]; then
   exit 0
 fi
 
+# shellcheck disable=SC2034
 ISSUES=""
 
 # ── Debugger statements (BLOCKING) ────────────────────────────────
@@ -124,15 +125,6 @@ while IFS= read -r f; do
 done <<< "${STAGED}"
 
 # ── Conventional commit format check (non-blocking) ──────────────
-FORMAT_WARN=""
-COMMIT_MSG="$(printf '%s\n' "${CMD}" | grep -oE '\-m[[:space:]]+"[^"]+"' | sed 's/-m[[:space:]]*"//' | sed 's/"$//' || true)"
-[ -z "${COMMIT_MSG}" ] && COMMIT_MSG="$(printf '%s\n' "${CMD}" | grep -oE "\-m[[:space:]]+'[^']+'" | sed "s/-m[[:space:]]*//" | sed "s/^'//" | sed "s/'$//" || true)"
-if [ -n "${COMMIT_MSG}" ]; then
-  if ! echo "${COMMIT_MSG}" | grep -qE '^(feat|fix|docs|refactor|test|chore|build|ci|perf|revert)(\(.+\))?!?:[[:space:]].+' 2>/dev/null; then
-    FORMAT_WARN="⚠️ Commit message may not follow conventional format (feat/fix/docs/refactor/test/chore/build/ci/perf/revert): ${COMMIT_MSG}"
-  fi
-fi
-
 # Inject non-blocking warnings as additionalContext via PostToolUse
 # (PreToolUse can only allow or deny — warnings become context after the commit runs)
 # Nothing to output here — allow the commit to proceed
