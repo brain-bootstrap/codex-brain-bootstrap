@@ -55,17 +55,19 @@ if $IS_TEMPLATE; then
 
   echo ""
   echo "🤝 Community files (template repo only)..."
-  COMMUNITY_FILES=(
-    "CONTRIBUTING.md"
+  REQUIRED_COMMUNITY=(
     ".github/PULL_REQUEST_TEMPLATE.md"
     ".github/ISSUE_TEMPLATE/bug-report.yml"
     ".github/ISSUE_TEMPLATE/feature-request.yml"
     ".github/ISSUE_TEMPLATE/config.yml"
     ".github/workflows/ci.yml"
-    ".shellcheckrc"
   )
-  for f in "${COMMUNITY_FILES[@]}"; do
+  for f in "${REQUIRED_COMMUNITY[@]}"; do
     if [ -f "$f" ]; then pass "$f"; else fail "MISSING: $f"; fi
+  done
+  # Template admin files — warn only (not required in user repos)
+  for f in "CONTRIBUTING.md" ".shellcheckrc"; do
+    if [ -f "$f" ]; then pass "$f"; else warn "MISSING: $f (template admin file — optional in user repos)"; fi
   done
 fi
 
