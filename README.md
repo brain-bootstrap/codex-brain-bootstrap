@@ -33,7 +33,13 @@
 
 ## 💡 What This Is
 
-**Brain Bootstrap is not a template to copy and forget. It's a behavioral enforcement layer for OpenAI Codex — lifecycle hooks that block violations before they execute, a persistent knowledge base that survives every session reset, and 49 skills purpose-built for recurring engineering tasks. Install it once. OpenAI Codex stops guessing and starts knowing.**
+Most instruction systems hand you generic rules and hope the AI reads them. Brain Bootstrap works differently — it starts by reading *your* codebase.
+
+Run `/bootstrap` once and a discovery engine scans your repo across 30+ languages and frameworks: your actual build commands, your real test runner, the packages you already use, the files that must never be touched. From that, it auto-generates architecture docs, a domain glossary, and build conventions specific to this project — not a generic template. Codex goes into every session knowing your stack, your naming conventions, your rules.
+
+Then it keeps learning. Every correction becomes a permanent rule. Ten lifecycle hooks block forbidden operations before they execute — deterministic bash scripts, not AI judgment. The knowledge base compounds with your codebase, session by session.
+
+**The result:** an assistant that knows your project the way a senior teammate does, and cannot unlearn it.
 
 ---
 
