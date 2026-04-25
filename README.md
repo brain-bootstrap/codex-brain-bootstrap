@@ -33,7 +33,7 @@
 
 ## 💡 What This Is
 
-**Brain Bootstrap is a project configuration template — a ready-made `AGENTS.md` and `.codex/` folder you install once into your repo. It gives OpenAI Codex persistent memory, enforced guardrails, and 49 built-in skills so your AI assistant finally knows your project and stops repeating the same mistakes every session.**
+**Brain Bootstrap is not a template to copy and forget. It's a behavioral enforcement layer for OpenAI Codex — lifecycle hooks that block violations before they execute, a persistent knowledge base that survives every session reset, and 49 skills purpose-built for recurring engineering tasks. Install it once. OpenAI Codex stops guessing and starts knowing.**
 
 ---
 
