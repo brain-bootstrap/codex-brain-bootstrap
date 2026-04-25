@@ -516,23 +516,43 @@ else
 
   # ── Phase E: Gitignore guard ─────────────────────────────────────
   # Ensure Codex-specific files that should stay out of version control
-  # are listed in .gitignore.
+  # are listed in .gitignore. Supports SOLO/TEAM detection:
+  # SOLO mode: AGENTS.md is already gitignored → also gitignore personal config files
   echo "🔒 Phase E — Gitignore guard:"
 
   GITIGNORE_FILE="$TARGET/.gitignore"
   GITIGNORE_ADDED=0
 
   if [ -f "$GITIGNORE_FILE" ]; then
-    # Files that should always be gitignored in a Codex project
-    CODEX_PERSONAL="brain/tasks/.pre-upgrade-backup.tar.gz brain/tasks/.discovery.env .cocoindex_code/"
+    # Always-personal files: gitignored regardless of SOLO/TEAM
+    ALWAYS_PERSONAL="brain/tasks/.pre-upgrade-backup.tar.gz brain/tasks/.discovery.env .cocoindex_code/"
+    # SOLO-only files: gitignored when repo already gitignores AGENTS.md
+    SOLO_PERSONAL="AGENTS.local.md .codex/settings.local.toml"
+
+    IS_SOLO=false
+    if grep -qE '^AGENTS\.md$' "$GITIGNORE_FILE" 2>/dev/null; then
+      IS_SOLO=true
+    fi
+
     MISSING_ENTRIES=""
-    for pf in $CODEX_PERSONAL; do
+    for pf in $ALWAYS_PERSONAL; do
       if ! grep -qF "$pf" "$GITIGNORE_FILE" 2>/dev/null; then
         MISSING_ENTRIES="$MISSING_ENTRIES$pf
 "
         GITIGNORE_ADDED=$((GITIGNORE_ADDED + 1))
       fi
     done
+
+    if [ "$IS_SOLO" = true ]; then
+      for pf in $SOLO_PERSONAL; do
+        if ! grep -qF "$pf" "$GITIGNORE_FILE" 2>/dev/null; then
+          MISSING_ENTRIES="$MISSING_ENTRIES$pf
+"
+          GITIGNORE_ADDED=$((GITIGNORE_ADDED + 1))
+        fi
+      done
+    fi
+
     if [ -n "$MISSING_ENTRIES" ]; then
       printf '\n# Codex Brain Bootstrap — local/generated files (added by install.sh)\n' >> "$GITIGNORE_FILE"
       printf '%s' "$MISSING_ENTRIES" >> "$GITIGNORE_FILE"

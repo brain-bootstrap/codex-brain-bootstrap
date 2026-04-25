@@ -49,7 +49,60 @@ require_tool() {
 # ─── Unicode/emoji support detection ──────────────────────────────
 supports_unicode() {
   case "${LANG:-}${LC_ALL:-}" in
-    *UTF-8*|*utf-8*) return 0 ;;
-    *) return 1 ;;
+    *UTF-8*|*utf-8*|*utf8*) return 0 ;;
   esac
+  # Windows Terminal and modern macOS Terminal support Unicode even without LANG
+  [ "$BRAIN_PLATFORM" = "macos" ] && return 0
+  [ -n "${WT_SESSION:-}" ] && return 0  # Windows Terminal
+  return 1
 }
+
+# ─── Emoji symbols with graceful fallback ─────────────────────────
+# shellcheck disable=SC2034  # exported/consumed by scripts that source this file
+if supports_unicode; then
+  PASS_SYM="✅"; FAIL_SYM="❌"; WARN_SYM="⚠️"
+else
+  PASS_SYM="[OK]"; FAIL_SYM="[FAIL]"; WARN_SYM="[WARN]"
+fi
+
+# ─── Portable pgrep (falls back to ps+awk on Git Bash/Windows) ───
+safe_pgrep() {
+  local pattern="$1"
+  if command -v pgrep &>/dev/null; then
+    pgrep -f "$pattern" 2>/dev/null || true
+  else
+    ps aux 2>/dev/null | awk -v pat="$pattern" '$0 ~ pat && !/awk/ {print $2}' || true
+  fi
+}
+
+# ─── Portable timeout (macOS doesn't ship GNU timeout) ────────────
+# Usage: run_with_timeout SECONDS command [args...]
+# Returns: command exit code, or 124 on timeout (same as GNU timeout)
+run_with_timeout() {
+  local _secs="$1"; shift
+  if command -v timeout &>/dev/null; then
+    timeout "$_secs" "$@"
+    return $?
+  else
+    # Pure-bash fallback: run in background, kill after N seconds
+    "$@" &
+    local _pid=$!
+    (
+      sleep "$_secs"
+      kill "$_pid" 2>/dev/null
+    ) &
+    local _watcher=$!
+    wait "$_pid" 2>/dev/null
+    local _rc=$?
+    kill "$_watcher" 2>/dev/null
+    wait "$_watcher" 2>/dev/null
+    # Bash returns 128+signal when killed; map to 124 (timeout convention)
+    if [ $_rc -ge 128 ]; then return 124; fi
+    return $_rc
+  fi
+}
+
+# ─── Windows path normalization ───────────────────────────────────
+if [ "$BRAIN_PLATFORM" = "windows" ] && [ -n "${BRAIN_PROJECT_DIR:-}" ]; then
+  BRAIN_PROJECT_DIR="${BRAIN_PROJECT_DIR//\\//}"
+fi

@@ -7,6 +7,31 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [1.2.0] — 2026-04-25 — Skills Parity, Hooks Coverage & Install SOLO/TEAM
+
+### Added
+
+#### Skills
+
+- **`.agents/skills/codeburn/`** — new skill: manage codeburn budget (token burn tracking, session cost awareness, context efficiency)
+
+#### Hooks — 5 new event scripts (6 → 8 event types covered)
+
+- **`.codex/hooks/subagent-stop.sh`** — SubagentStop event: log subagent completion, update token counters, surface findings summary
+- **`.codex/hooks/permission-denied.sh`** — PermissionDenied event: log blocked operations, surface alternatives, prevent silent failures
+- **`.codex/hooks/pre-compact.sh`** — PreCompact event: checkpoint current task state to brain/tasks/todo.md before context compaction
+- **`.codex/hooks/on-compact.sh`** — OnCompact event: restore session context and task state after compaction completes
+- **`.codex/hooks/edit-accumulator.sh`** — EditAccumulator event: track cumulative edit size across session, warn at thresholds
+
+### Fixed
+
+- **`.codex/hooks.json`** — added 5 new hook registrations for SubagentStop, PermissionDenied, PostToolUse, PreCompact, OnCompact, and EditAccumulator; hooks.json now covers all 8 event types (was 6)
+- **`install.sh`** — SOLO/TEAM mode detection added: when `AGENTS.md` is already gitignored (SOLO repo), also gitignore `AGENTS.local.md` and `.codex/settings.local.toml`; TEAM repos leave these unignored for sharing
+- **`brain/scripts/_platform.sh`** — `supports_unicode()` now detects `*utf8*` locale variant, macOS auto-pass, and `WT_SESSION` Windows Terminal; aligns with Claude reference implementation
+- **`brain/scripts/validate.sh`** — domain-free check and template integrity section added; now validates `AGENTS.md` references no foreign platform terms
+
+---
+
 ## [1.1.0] — 2026-04-24 — Full Parity & Audit Pass
 
 ### Fixed (Critical)

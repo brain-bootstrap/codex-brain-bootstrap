@@ -23,6 +23,52 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "  Codex Brain Bootstrap  ·  Validator"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
+# 0. Template integrity (only when running on the template repo itself)
+IS_TEMPLATE=false
+if [ -f "brain/scripts/validate.sh" ] && [ -f "brain/docs/DETAILED_GUIDE.md" ] && [ -d ".agents/skills" ]; then
+  _HAS_MANIFEST=false
+  for _m in package.json Cargo.toml go.mod pyproject.toml pom.xml build.gradle pubspec.yaml mix.exs setup.py requirements.txt composer.json Gemfile CMakeLists.txt Makefile deno.json; do
+    [ -f "$_m" ] && _HAS_MANIFEST=true && break
+  done
+  if ! $_HAS_MANIFEST; then IS_TEMPLATE=true; fi
+fi
+
+if $IS_TEMPLATE; then
+  echo ""
+  echo "🛡️  Template integrity (self-bootstrap protection)..."
+  if grep -q '{{PROJECT_NAME}}' AGENTS.md 2>/dev/null; then
+    pass "AGENTS.md {{PROJECT_NAME}} placeholder intact"
+  else
+    fail "AGENTS.md missing {{PROJECT_NAME}} — template may be corrupted. Restore: git checkout -- AGENTS.md"
+  fi
+  _PH_COUNT=$(grep -rEc '\{\{[A-Z_]+\}\}' AGENTS.md brain/ .agents/ 2>/dev/null | awk -F: '{s+=$2} END {print s+0}' || echo 0)
+  if [ "$_PH_COUNT" -ge 50 ]; then
+    pass "Template has $_PH_COUNT placeholders (healthy)"
+  else
+    fail "Template only has $_PH_COUNT placeholders (expected 50+) — likely corrupted"
+  fi
+  if grep -q 'IS_TEMPLATE_REPO' brain/scripts/populate-templates.sh 2>/dev/null; then
+    pass "populate-templates.sh has self-bootstrap guard"
+  else
+    warn "populate-templates.sh missing self-bootstrap guard"
+  fi
+
+  echo ""
+  echo "🤝 Community files (template repo only)..."
+  COMMUNITY_FILES=(
+    "CONTRIBUTING.md"
+    ".github/PULL_REQUEST_TEMPLATE.md"
+    ".github/ISSUE_TEMPLATE/bug-report.yml"
+    ".github/ISSUE_TEMPLATE/feature-request.yml"
+    ".github/ISSUE_TEMPLATE/config.yml"
+    ".github/workflows/ci.yml"
+    ".shellcheckrc"
+  )
+  for f in "${COMMUNITY_FILES[@]}"; do
+    if [ -f "$f" ]; then pass "$f"; else fail "MISSING: $f"; fi
+  done
+fi
+
 # 1. Required files exist
 echo ""
 echo "📁 Required files..."
@@ -133,6 +179,7 @@ SKILLS=(
   ".agents/skills/ticket/SKILL.md"
   ".agents/skills/update-code-index/SKILL.md"
   ".agents/skills/worktree-status/SKILL.md"
+  ".agents/skills/codeburn/SKILL.md"
 )
 
 for f in "${SKILLS[@]}"; do
@@ -263,6 +310,39 @@ for f in "${NEW_EXECUTABLES[@]}"; do
     fail "NOT EXECUTABLE: $f"
   fi
 done
+
+# 10. Domain-free check
+# Skip if the template has been bootstrapped — {{PROJECT_NAME}} in AGENTS.md is gone.
+echo ""
+if [ -f "AGENTS.md" ] && ! grep -q '{{PROJECT_NAME}}' AGENTS.md 2>/dev/null; then
+  echo "🔒 Domain-free verification... SKIPPED (bootstrapped instance — {{PROJECT_NAME}} replaced)"
+  pass "Bootstrapped instance detected — domain-free check not applicable"
+else
+  echo "🔒 Domain-free verification (template files only)..."
+  FORBIDDEN_TERMS='my-company|my-project|example\.com|TODO_REPLACE'
+  HITS=$(grep -rniE "$FORBIDDEN_TERMS" AGENTS.md brain/ .agents/ --include='*.md' --include='*.toml' --include='*.sh' 2>/dev/null \
+    | grep -v '.git/' | grep -v 'validate.sh' | grep -v '_template' | grep -v 'brain/tasks/' | grep -v 'brain/docs/' | grep -v 'CONTRIBUTING' || true)
+  if [ -z "$HITS" ]; then
+    pass "No forbidden domain references found"
+  else
+    fail "Forbidden domain references found:"
+    echo "$HITS" | head -10
+  fi
+fi
+
+# 11. AGENTS.md line count guard
+echo ""
+echo "📏 Size checks..."
+if [ -f "AGENTS.md" ]; then
+  AGENTS_LINES=$(wc -l < AGENTS.md)
+  if [ "$AGENTS_LINES" -le 200 ]; then
+    pass "AGENTS.md: $AGENTS_LINES lines (≤200)"
+  else
+    warn "AGENTS.md: $AGENTS_LINES lines (>200 — consider trimming)"
+  fi
+else
+  fail "AGENTS.md missing — cannot check size"
+fi
 
 # ─── Summary ──────────────────────────────────────────────────────
 echo ""

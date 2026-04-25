@@ -91,6 +91,69 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/edit-accumulator.sh",
+            "statusMessage": "Recording edited file for batch processing",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/subagent-stop.sh",
+            "statusMessage": "Logging subagent completion",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "PermissionDenied": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/permission-denied.sh",
+            "statusMessage": "Logging permission denial",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/pre-compact.sh",
+            "statusMessage": "Preserving context before compaction",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+
+    "OnCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel 2>/dev/null || echo .)\"/.codex/hooks/on-compact.sh",
+            "statusMessage": "Re-injecting context after compaction",
+            "timeout": 5
+          }
+        ]
       }
     ],
 
