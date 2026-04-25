@@ -76,7 +76,7 @@ Here's the mental model:
             "Here's everything we've learned together"
 ```
 
-**48 skills. 10 lifecycle hooks. 5 AI subagents. 5 MCP tools. 104+ validation checks. Zero setup friction.**
+**49 skills. 10 lifecycle hooks. 5 AI subagents. 5 MCP tools. 104+ validation checks. Zero setup friction.**
 
 > 💡 Battle-tested. Works with **any language, any framework, any repo**.
 

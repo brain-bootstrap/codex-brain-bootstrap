@@ -33,7 +33,7 @@
 
 ## 💡 What This Is
 
-**Brain Bootstrap is a project configuration template — a ready-made `AGENTS.md` and `.codex/` folder you install once into your repo. It gives OpenAI Codex persistent memory, enforced guardrails, and 48 built-in skills so your AI assistant finally knows your project and stops repeating the same mistakes every session.**
+**Brain Bootstrap is a project configuration template — a ready-made `AGENTS.md` and `.codex/` folder you install once into your repo. It gives OpenAI Codex persistent memory, enforced guardrails, and 49 built-in skills so your AI assistant finally knows your project and stops repeating the same mistakes every session.**
 
 ---
 
@@ -51,7 +51,7 @@ Codex is stateless by design — each session starts blank. So you end up re-exp
 
 - **Persistent memory** — conventions, architecture, past mistakes embedded once and never forgotten
 - **Enforced rules** — 10 lifecycle hooks that block violations _before_ they run, no AI judgment involved
-- **Ready-to-use workflows** — 48 skills, 5 specialist agents covering every common task
+- **Ready-to-use workflows** — 49 skills, 5 specialist agents covering every common task
 - **Self-updating knowledge** — the knowledge layer grows with your codebase, session by session
 
 **Install once. Correct once. It never happens again.**
@@ -141,7 +141,7 @@ Your repo
 │   ├── rules/                      ← Starlark command approval rules
 │   └── agents/                     ← 5 AI subagents (explorer, reviewer, plan-challenger...)
 ├── 🎓 .agents/
-│   └── skills/                     ← 48 invocable skills ($bootstrap, $review, $tdd, $mr...)
+│   └── skills/                     ← 49 invocable skills ($bootstrap, $review, $tdd, $mr...)
 ├── 📚 brain/
 │   ├── architecture.md             ← Your project's architecture (injected on session start)
 │   ├── rules.md                    ← 25 golden rules (auto-imported)
@@ -183,7 +183,7 @@ The system is designed to **minimize token cost** while maximizing context — y
 | Category                 | Count | Highlights                                                                                                     |
 | :----------------------- | :---: | :------------------------------------------------------------------------------------------------------------- |
 | 📚 **Knowledge docs**    |   8   | Architecture, rules, build, CVE policy, terminal safety, templates, decisions + 3 worked domain examples       |
-| 🎓 **Skills**            |  48   | Bootstrap, plan, review, TDD, debug, research, MR, changelog, squad-plan — the full dev lifecycle              |
+| 🎓 **Skills**            |  49   | Bootstrap, plan, review, TDD, debug, research, MR, changelog, squad-plan — the full dev lifecycle              |
 | 🪝 **Lifecycle hooks**   |  10   | Config protection, terminal safety, commit quality, prompt guard, TDD loop check, exit checklist               |
 | 🤖 **AI subagents**      |   5   | Explorer, reviewer, plan-challenger, session-reviewer, security-auditor — each picks the right reasoning level |
 | 🔧 **Brain scripts**     |  16   | Stack discovery (3800-line detector), template population, validation, plugin setup, portability lint          |
@@ -340,7 +340,7 @@ Not ready to share your Brain with the team? Switch to **SOLO mode**: add `AGENT
 <details>
 <summary><strong>⚖️ How is this different from just writing a good AGENTS.md?</strong></summary>
 
-Scope. A hand-written `AGENTS.md` is a flat instruction file — the AI reads it _if it feels like it_. Brain is a **multi-layered enforcement architecture** with lifecycle hooks that block before execution, subagents that run in isolated contexts, 48 skills that activate per task, session memory that persists across restarts, and self-maintenance that keeps docs current.
+Scope. A hand-written `AGENTS.md` is a flat instruction file — the AI reads it _if it feels like it_. Brain is a **multi-layered enforcement architecture** with lifecycle hooks that block before execution, subagents that run in isolated contexts, 49 skills that activate per task, session memory that persists across restarts, and self-maintenance that keeps docs current.
 
 It's the difference between a sticky note and an operating system.
 

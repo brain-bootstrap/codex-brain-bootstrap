@@ -198,7 +198,7 @@ emit "INFRA_FILES" "$INFRA_COUNTS"
 #        .mm→m, .mts/.cts/.mjs/.cjs→ts/js, .gql→graphql, .pm→pl, .exs→ex, etc.
 # Raw LANG_COUNTS keeps per-extension detail; NORM_COUNTS merges for PRIMARY_LANG.
 NORM_COUNTS=""
-declare -A _NORM_MAP
+declare -A _NORM_MAP # portability-ok — bash 4+ enforced at script entry (see line 22)
 for pair in $(echo "$LANG_COUNTS" | tr ',' ' '); do
   [ -z "$pair" ] && continue
   EXT="${pair%%:*}"; CNT="${pair##*:}"
@@ -1868,7 +1868,7 @@ esac
 
 # Merge secondary language extensions (deduplication via associative array)
 # This ensures dual-language repos (e.g., Python backend + React frontend) accumulate ALL formattable files.
-declare -A _EXT_SEEN
+declare -A _EXT_SEEN # portability-ok — bash 4+ enforced at script entry (see line 22)
 for _e in $(echo "$CASE_EXT" | tr '|' ' '); do _EXT_SEEN["$_e"]=1; done
 for _sec in $(echo "${SECONDARY_LANGS%,}" | tr ',' ' '); do
   [ -z "$_sec" ] && continue
