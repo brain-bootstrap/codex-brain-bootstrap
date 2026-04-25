@@ -221,6 +221,8 @@ This isn't a static config that rots. It's a **living system** with six feedback
 
 ---
 
+<a id="-safety-defense-in-depth"></a>
+
 ## 🛡️ Safety: Defense in Depth
 
 Security isn't one mechanism — it's **two layers** working together:
@@ -261,6 +263,8 @@ Five MCP plugins available — pick what fits your stack. Run `bash brain/script
 > 📚 **Full plugin reference:** [brain/plugins.md](brain/plugins.md) — usage examples, install commands, token economics.
 
 ---
+
+<a id="-make-it-yours"></a>
 
 ## ⚙️ Make It Yours
 
