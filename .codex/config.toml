@@ -37,7 +37,7 @@ max_depth   = 1    # Prevent unbounded recursive delegation
 # ── Shell environment forwarding ───────────────────────────────────
 # Only forward the variables Codex needs — never leak credentials.
 [shell_environment_policy]
-inherit = false
+inherit = "none"
 include_only = ["PATH", "HOME", "USER", "SHELL", "LANG", "LC_ALL", "NO_COLOR",
                 "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL", "CODEX_HOME"]
 
